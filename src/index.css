@@ -9,6 +9,8 @@
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 600;
 }
 
 body {

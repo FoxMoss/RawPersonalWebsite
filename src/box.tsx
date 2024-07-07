@@ -26,9 +26,7 @@ export const Box: Component<
         user-select: none;
         background-color: ${lightColor};
         color: ${textColor};
-        font-family: "Exo 2", sans-serif;
         font-optical-sizing: auto;
-        font-weight: 600;
         font-style: normal;
         border-radius: 10px;
         border: 2px solid ${backgroundColor};

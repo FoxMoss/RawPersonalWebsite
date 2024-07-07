@@ -3,12 +3,41 @@ import "./index.css";
 import { Box, Row } from "./box";
 import { Link } from "./link";
 import { AboutMe, Animate, Buttons } from "./about-me";
+import { NavBar } from "./navbar";
+import { backgroundColor, lightColor, textColor } from "./colors";
 
 const App: Component<{}, {}> = function () {
     this.css = `
       height: 100vh;
-      padding: 40px;
     `;
+
+    return (
+        <div>
+            <NavBar />
+        </div>
+    );
+};
+export const Blog: Component<{}, {}> = function () {
+    let main = css`
+        background-color: ${lightColor};
+        color: ${textColor};
+        font-optical-sizing: auto;
+        font-style: normal;
+        border-radius: 10px;
+        border: 2px solid ${backgroundColor};
+        margin: 10px;
+        padding: 10px;
+    `;
+    return (
+        <div>
+            <Row>
+                <div class={main}>Nothing here yet...</div>
+            </Row>
+        </div>
+    );
+};
+
+export const Personal: Component<{}, {}> = function () {
     const spin = css`
         width: 100px;
         float: right;
@@ -21,11 +50,12 @@ const App: Component<{}, {}> = function () {
         left: 0;
     `;
     const predisplayed = css`
-        margin-top: 100px;
+        margin-top: 150px;
     `;
 
     return (
         <div>
+            {" "}
             <div id="boxHub" class={boxHub} />
             <div class={predisplayed}>
                 <Row>
