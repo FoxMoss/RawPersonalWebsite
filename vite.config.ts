@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, UserConfig } from 'vite';
 import { dreamlandPlugin } from 'vite-plugin-dreamland';
 
 export default defineConfig({
