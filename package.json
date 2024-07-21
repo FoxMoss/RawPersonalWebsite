@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "dreamland": "^0.0.22",
+    "dreamland": "link:../dreamland",
     "vite-plugin-dreamland": "^1.2.0"
   },
   "devDependencies": {

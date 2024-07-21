@@ -60,6 +60,17 @@ export const Blog: Component<{}, {}> = function () {
 <figure>
 <img src="/blog/firstresults.png" alt="" /><figcaption>Comparisons to /home/foxmoss/People/foxmoss-altchannel.csv, messages from a private developer community</figcaption>
 </figure>
+<p>TODO: More testing</p>
+<h2 id="avoiding-detection">Avoiding detection</h2>
+<p>I attempted the same test again but this time with an alt account where I was intentionally speaking different, even with this the result came back as accurate as before.</p>
+<p><img src="/blog/alt.png" /></p>
+<p>But typing different likely does have an effect as I took these messages on an alt account and ran them through the Claude (though likely any LLM would work) and got it to rephrase my messages. After running it through the chain again something quite interesting happened.</p>
+<p><img src="/blog/ai.png" /></p>
+<p>The new Claude dataset matched closely with the alt dataset which make sense but not my other datasets. More testing is of course needed but using an AI to reformat right now seems like a good way to mask your typing style.</p>
+<p>Though a problem might arise as you try not navigate having more identities as the new AI guided typing style is now likely equally detectable.</p>
+<h2 id="ethics.">Ethics.</h2>
+<p>While looking for testing data, as soon as I brought up this concept in some public Discord servers many people’s gut reaction was of fear and was of genuine concern. What was stated of the heart of the concern was a lack of consent in data collection which would likely happen in junction with the project if it was released to the public. My internal defense to this argument was that the big corporation were already doing this. Would I not prefer an individual to be collecting data with less of an ability to do something with that data (eg. Sell it like a mega corp has resources to do.) but still have the ability to stalk users and cause serious harm. Or leave it for the mega corps and hope that corporate America has it in itself to stay that last shred ethical and accountable. Instead of making people aware of the risks of posting anything on the internet and how they can potentially avoid being detected by the system.</p>
+<p>It’s a debate that rages on in my head, and I know I’m biased. I would much rather post this on social media and get the instant gratification of lots of attention and turn a blind eye to any harm that would come from my actions.</p>
 </div>
 {/*]}*/}</div>
                 </div>
