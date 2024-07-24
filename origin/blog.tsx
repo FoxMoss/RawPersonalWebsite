@@ -1,11 +1,18 @@
 import { Row } from "./box";
 import { backgroundColor, lightColor, textColor } from "./colors";
 
-// @@gen = script.bash("echo '*/}'; find origin/blog/*.md | xargs -I % sh -c 'cat origin/blog/prepend && pandoc % && cat origin/blog/end'; echo '{/*'")
+const blogPosts = [
+    {
+        name: "User fingerprinting with Markov chains",
+        author: "FoxMoss",
+        link: "/blog/foxkov.html",
+        date: "Wed Jul 24 12:56:53 AM CDT 2024",
+    },
+];
 
 export const Blog: Component<{}, {}> = function () {
+    // background-color: ${lightColor};
     let main = css`
-        background-color: ${lightColor};
         color: ${textColor};
         font-optical-sizing: auto;
         font-style: normal;
@@ -13,7 +20,6 @@ export const Blog: Component<{}, {}> = function () {
         border: 2px solid ${backgroundColor};
         padding: 2em;
         width: 90vw;
-        height: 89vh;
         font-weight: 400;
         overflow-y: scroll;
 
@@ -32,11 +38,27 @@ export const Blog: Component<{}, {}> = function () {
             font-size: small;
         }
     `;
+    const postFormat = css`
+        background-color: ${lightColor};
+        padding: 2vh;
+        cursor: pointer;
+        border-radius: 10px;
+    `;
     return (
         <div>
             <Row>
                 <div class={main}>
-                    <div>{/*{[@(gen)]}*/}</div>
+                    {blogPosts.map((post) => (
+                        <div
+                            class={postFormat}
+                            on:click={() => {
+                                window.location.pathname = post.link;
+                            }}
+                        >
+                            {post.name} by {post.author}{" "}
+                            <div style={{ float: "right" }}>{post.date}</div>
+                        </div>
+                    ))}
                 </div>
             </Row>
         </div>

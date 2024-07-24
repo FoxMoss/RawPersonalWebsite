@@ -135,6 +135,13 @@ export const DreamlandButton = () => {
     );
 };
 export const Contact = () => {
+    let small = css`
+        font-size: x-small;
+        max-width: 20vw;
+        display: block;
+        overflow-wrap: break-word;
+        cursor: pointer;
+    `;
     return (
         <div style={{ minWidth: "400px" }}>
             <div>
@@ -144,10 +151,18 @@ export const Contact = () => {
                 Email Address: <pre>foxmoss@mediaology.com</pre>
             </div>
             <div>
-                Monero{" "}
-                <pre>
-                    464X6mXx2AYWpe7hAzGmzKKqtguUkVDnwbLE8hVAUvKAWqAPvgKqtwhW6huypomhakSuBA81dD45SQvGZ8VpHy25DWkg6uN
-                </pre>
+                Monero:{" "}
+                <div
+                    class={small}
+                    on:click={() => {
+                        navigator.clipboard.writeText(
+                            "49A955UvYmEBWWTXcxe3vd7YnBpGa85hu88Gx1TrJpELFb6QNLapTJ1SAtVMqrwFePBdnKgpgGdizPsN5MCeDoEA6PF7HW1",
+                        );
+                        alert("Copied my Monero wallet address.");
+                    }}
+                >
+                    49A955UvYmEBWWTXcxe3vd7YnBpGa85hu88Gx1TrJpELFb6QNLapTJ1SAtVMqrwFePBdnKgpgGdizPsN5MCeDoEA6PF7HW1
+                </div>
             </div>
         </div>
     );

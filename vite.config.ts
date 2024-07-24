@@ -1,6 +1,15 @@
-import { defineConfig, UserConfig } from 'vite';
-import { dreamlandPlugin } from 'vite-plugin-dreamland';
+import { defineConfig, UserConfig } from "vite";
+import { resolve } from "path";
+import { dreamlandPlugin } from "vite-plugin-dreamland";
 
 export default defineConfig({
-    plugins: [dreamlandPlugin()]
+    plugins: [dreamlandPlugin()],
+    build: {
+        rollupOptions: {
+            input: {
+                main: resolve(__dirname, "index.html"),
+                foxkov: resolve(__dirname, "blog/foxkov.html"),
+            },
+        },
+    },
 });

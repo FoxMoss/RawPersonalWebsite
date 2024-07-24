@@ -1,5 +1,6 @@
 import "dreamland/dev";
 import "./index.css";
+import "./wm.css";
 import { Box, Row } from "./box";
 import { Link } from "./link";
 import { AboutMe, Animate, Buttons, Contact } from "./about-me";
