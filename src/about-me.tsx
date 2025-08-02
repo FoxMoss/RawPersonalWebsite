@@ -1,4 +1,3 @@
-import { backgroundColor, textColor } from "./colors";
 import { Link, RealLink, SmallLink } from "./link";
 
 export const AboutMe = () => (

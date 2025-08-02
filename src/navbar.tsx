@@ -1,7 +1,12 @@
-import { Blog } from "./blog";
 import { Row } from "./box";
 import { backgroundColor, lightColor } from "./colors";
 import { Personal } from "./main";
+
+const Blog: Component<{}, {}> = function () {
+  return (
+    <div></div>
+  );
+}
 
 export const NavBar: Component<
     {},
@@ -14,11 +19,13 @@ export const NavBar: Component<
     useChange(this.path, () => {
         let url = new URL(document.URL);
         url.pathname = this.path;
-        window.history.pushState("", "FoxMoss", url.toString());
+        if(window.location.toString() != url.toString()){
+          window.location.assign(url);
+        }
     });
     this.pages = {
         "/": { name: "Personal", page: Personal },
-        "/blog": { name: "Blog", page: Blog },
+        "/blog/": { name: "Blog", page: Blog },
     };
     this.css = `
         margin: 5px;

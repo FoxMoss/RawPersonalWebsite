@@ -5,7 +5,6 @@ import { Box, Row } from "./box";
 import { Link } from "./link";
 import { AboutMe, Animate, Buttons, Contact } from "./about-me";
 import { NavBar } from "./navbar";
-import { backgroundColor, lightColor, textColor } from "./colors";
 
 const App: Component<{}, {}> = function () {
     this.css = `
