@@ -3,7 +3,11 @@ import { Box } from "./box";
 
 let zInc = 1;
 export const Link: Component<
-    { content: () => ComponentChild; children: ComponentChild | string },
+    {
+        content: () => ComponentChild;
+        children: ComponentChild | string;
+        mobile?: boolean;
+    },
     {}
 > = function (cx) {
     let curentMouseX = 0;
@@ -18,7 +22,12 @@ export const Link: Component<
         <span
             on:click={() => {
                 document.getElementById("boxHub")?.appendChild(
-                    <Box x={curentMouseX} y={curentMouseY} z={zInc++}>
+                    <Box
+                        x={curentMouseX}
+                        y={curentMouseY}
+                        z={zInc++}
+                        mobile={use(window.mobile.mobile)}
+                    >
                         {this.content()}
                     </Box>,
                 );
@@ -35,7 +44,7 @@ Link.style = css`
     }
 `;
 export const RealLink: Component<
-    { href: string; children: ComponentChild | string },
+    { href: string; children: ComponentChild | string; mobile?: boolean },
     {}
 > = function (cx) {
     const link = css`
@@ -54,9 +63,23 @@ export const RealLink: Component<
         <span
             on:click={() => {
                 document.getElementById("boxHub")?.appendChild(
-                    <Box x={curentMouseX} y={curentMouseY} z={zInc++}>
+                    <Box
+                        x={curentMouseX}
+                        y={curentMouseY}
+                        z={zInc++}
+                        mobile={use(window.mobile.mobile)}
+                    >
                         <div
-                            style={{ "min-width": "400px", "text-decoration": "underline", "cursor": "pointer", "padding": "10px"}}
+                            style={{
+                                "min-width": use(window.mobile.mobile).andThen(
+                                    "auto",
+                                    "400px",
+                                ),
+                                "text-decoration": "underline",
+                                "overflow-wrap": "anywhere",
+                                cursor: "pointer",
+                                padding: "10px",
+                            }}
                             on:click={() => {
                                 window.open(this.href, "_blank");
                             }}
@@ -79,7 +102,7 @@ RealLink.style = css`
     }
 `;
 export const SmallLink: Component<
-    { content: string; children: ComponentChild | string },
+    { content: string; children: ComponentChild | string; mobile?: boolean },
     {}
 > = function (cx) {
     let curentMouseX = 0;
@@ -94,8 +117,20 @@ export const SmallLink: Component<
         <span
             on:click={() => {
                 document.getElementById("boxHub")?.appendChild(
-                    <Box x={curentMouseX} y={curentMouseY} z={zInc++}>
-                        <div style={{ "min-width": "400px" }}>
+                    <Box
+                        x={curentMouseX}
+                        y={curentMouseY}
+                        z={zInc++}
+                        mobile={use(window.mobile.mobile)}
+                    >
+                        <div
+                            style={{
+                                "min-width": use(window.mobile.mobile).andThen(
+                                    "auto",
+                                    "400px",
+                                ),
+                            }}
+                        >
                             {this.content}
                         </div>
                     </Box>,

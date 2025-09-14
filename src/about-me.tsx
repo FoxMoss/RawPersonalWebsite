@@ -2,7 +2,11 @@ import { css, type Component } from "dreamland/core";
 import { Link, RealLink, SmallLink } from "./link";
 
 export const AboutMe = () => (
-    <div style={{ "min-width": "300px" }}>
+    <div
+        style={{
+            "min-width": use(window.mobile.mobile).andThen("auto", "300px"),
+        }}
+    >
         <h2>About Me</h2>
         <div>
             You probably know me from my various programming projects or from
@@ -28,7 +32,11 @@ export const AboutMe = () => (
     </div>
 );
 export const Kpop = () => (
-    <div style={{ "min-width": "400px" }}>
+    <div
+        style={{
+            "min-width": use(window.mobile.mobile).andThen("auto", "400px"),
+        }}
+    >
         <h2>Kpop</h2>
         <div>
             I mostly listen to girl groups, mostly NewJeans and Le Sseraphim.
@@ -41,7 +49,11 @@ export const Animate = () => (
     <img style={{ "border-radius": "10px" }} src="/spin.gif" />
 );
 export const Wisp = () => (
-    <div style={{ "min-width": "400px" }}>
+    <div
+        style={{
+            "min-width": use(window.mobile.mobile).andThen("auto", "400px"),
+        }}
+    >
         <h2>Wisp</h2>
         <div>
             Wisp is a proxing protocol, similar to socks5 and bare. It is meant
@@ -63,7 +75,11 @@ export const Wisp = () => (
     </div>
 );
 export const Mediaology = () => (
-    <div style={{ "min-width": "400px" }}>
+    <div
+        style={{
+            "min-width": use(window.mobile.mobile).andThen("auto", "400px"),
+        }}
+    >
         <h2>Mediaology</h2>
         <div>
             Also known by other meaningless titles, such as "Moss News", "Fish
@@ -79,10 +95,14 @@ export const Mediaology = () => (
 );
 export const Buttons = () => {
     return (
-        <div style={{ "min-width": "400px" }}>
+        <div
+            style={{
+                "min-width": use(window.mobile.mobile).andThen("auto", "400px"),
+            }}
+        >
             <h2>88x31 Web Buttons</h2>
             Here is my collection with links, or an acompanied explanation.
-            <div style={{ "display": "flex", "gap": "8px" }}>
+            <div style={{ display: "flex", gap: "8px", "flex-wrap": "wrap" }}>
                 <Link content={DreamlandButton}>
                     <img src="/dreamland.png" />
                 </Link>
@@ -102,20 +122,13 @@ export const Buttons = () => {
         </div>
     );
 };
-Buttons.style = css`
-    :scope {
-        background: red;
-    }
-    .buttons {
-        display: flex;
-        gap: 8px;
-        margin: 4px;
-    }
-`;
-
 export const DreamlandButton = () => {
     return (
-        <div style={{ "min-width": "400px" }}>
+        <div
+            style={{
+                "min-width": use(window.mobile.mobile).andThen("auto", "400px"),
+            }}
+        >
             I also made this button! Creative Commons 0 if you would like to use
             it. It is for the{" "}
             <RealLink href="https://dreamland.js.org/">
@@ -127,7 +140,7 @@ export const DreamlandButton = () => {
 };
 export const Contact = () => {
     return (
-        <div style={{ "min-width": "400px" }}>
+        <div>
             <div>
                 Discord: <pre>foxmoss_</pre>
             </div>
@@ -137,7 +150,13 @@ export const Contact = () => {
             <div>
                 Monero:{" "}
                 <div
-                    class="small"
+                    style={{
+                        "font-size": "x-small",
+                        "max-width": "20vw",
+                        display: "block",
+                        "overflow-wrap": "anywhere",
+                        cursor: "pointer",
+                    }}
                     on:click={() => {
                         navigator.clipboard.writeText(
                             "49A955UvYmEBWWTXcxe3vd7YnBpGa85hu88Gx1TrJpELFb6QNLapTJ1SAtVMqrwFePBdnKgpgGdizPsN5MCeDoEA6PF7HW1",
@@ -151,13 +170,3 @@ export const Contact = () => {
         </div>
     );
 };
-
-Contact.style = css`
-    .small {
-        font-size: x-small;
-        max-width: 20vw;
-        display: block;
-        overflow-wrap: break-word;
-        cursor: pointer;
-    }
-`;

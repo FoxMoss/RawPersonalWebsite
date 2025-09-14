@@ -1,53 +1,112 @@
-import { css, type Component } from "dreamland/core";
+import { css, createState, type Component } from "dreamland/core";
 import "./index.css";
 import "./wm.css";
 import { Box, Row } from "./box";
 import { Link } from "./link";
 import { AboutMe, Animate, Buttons, Contact } from "./about-me";
 import { NavBar } from "./navbar";
+import { backgroundColor, lightColor, textColor } from "./colors";
 
-const App: Component<{}, {}> = function () {
+// https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser#11381730
+window.mobile = createState({
+    mobile: false,
+});
+
+const App: Component<{}, { mobile: boolean }> = function () {
+    use(this.mobile).listen(() => (window.mobile.mobile = this.mobile));
+    this.mobile = typeof screen.orientation !== "undefined";
     return (
-        <div>
-            <NavBar/>
+        <div class={use(this.mobile).andThen("", "desktop")}>
+            {use(this.mobile).andThen(() => (
+                <div
+                    class="annoying"
+                    on:click={() => {
+                        this.mobile = false;
+                    }}
+                >
+                    You are viewing the mobile version of the site. Click me to
+                    disable.{" "}
+                </div>
+            ))}
+
+            <NavBar mobile={use(this.mobile)} />
         </div>
     );
 };
 App.style = css`
-:scope{
-
-    height: 100vh;
-}
+    :scope {
+        height: 100vh;
+        overflow-x: hidden;
+    }
+    .desktop {
+        overflow: hidden;
+    }
+    .annoying {
+        text-align: center;
+        font-size: large;
+        background-color: black;
+        color: white;
+        padding: 10px;
+        margin-bottom: 30px;
+    }
 `;
 
-export const Personal: Component<{}, {}> = function () {
+export const Personal: Component<
+    {
+        mobile: boolean;
+    },
+    {}
+> = function () {
     return (
         <div>
             {" "}
-            <div id="boxHub" class="boxHub" />
-            <div class="predisplayed">
-                <Row>
-                 <Box x={0} y={0} z={0}>
-                        <div style={{ width: "400px" }}>
-                            <h1>
-                                Hello.
-                                <Link content={Animate}>
-                                    <img class="spin" src="/pfp.png" />
-                                </Link>
-                            </h1>
+            {use(this.mobile).andThen("", <div id="boxHub" class="boxHub" />)}
+            <div class={use(this.mobile).andThen("", "predisplayed")}>
+                <Row mobile={use(this.mobile)}>
+                    <Box x={0} y={0} z={0} mobile={use(this.mobile)}>
+                        <div
+                            style={{
+                                width: use(this.mobile).andThen(
+                                    "auto",
+                                    "400px",
+                                ),
+                            }}
+                        >
+                            <Link content={Animate} mobile={use(this.mobile)}>
+                                <img
+                                    class={use(this.mobile).andThen(
+                                        "spinMobile",
+                                        "spin",
+                                    )}
+                                    src="/pfp.png"
+                                />
+                            </Link>
+
+                            <h1>Hello.</h1>
                             <div>I am foxmoss.</div>
                             <br />
                             <ul>
                                 <li>
-                                    <Link content={AboutMe}>About Me</Link>
+                                    <Link
+                                        content={AboutMe}
+                                        mobile={use(this.mobile)}
+                                    >
+                                        About Me
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link content={Buttons}>
+                                    <Link
+                                        content={Buttons}
+                                        mobile={use(this.mobile)}
+                                    >
                                         88x31 Web Buttons
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link content={Contact}>
+                                    <Link
+                                        content={Contact}
+                                        mobile={use(this.mobile)}
+                                    >
                                         Other Platforms
                                     </Link>
                                 </li>
@@ -58,8 +117,9 @@ export const Personal: Component<{}, {}> = function () {
                                 and will not reload/replace this tab.
                             </div>
                         </div>
-                    </Box> 
+                    </Box>
                 </Row>
+                {use(this.mobile).andThen(<div id="boxHub" />)}
             </div>
         </div>
     );
@@ -68,9 +128,13 @@ export const Personal: Component<{}, {}> = function () {
 Personal.style = css`
     .spin {
         width: 100px;
-        float: right;
         border-radius: 10px;
+        float: right;
         margin: 10px;
+    }
+    .spinMobile {
+        width: 100px;
+        border-radius: 10px;
     }
     .boxHub {
         position: absolute;

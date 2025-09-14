@@ -3,22 +3,36 @@ import { backgroundColor, lightColor, textColor } from "./colors";
 
 export const Row: Component<
     {
+        mobile: boolean;
         children: ComponentChild;
     },
     {}
 > = function (cx) {
-    return <div>{cx.children}</div>;
+    return (
+        <div class={use(this.mobile).andThen("mobile", "desktop")}>
+            {cx.children}
+        </div>
+    );
 };
 Row.style = css`
-    :scope {
+    .desktop {
         display: flex;
         justify-content: center;
         align-items: center;
     }
+    .mobile {
+        margin-top: 10px;
+    }
 `;
 
 export const Box: Component<
-    { x: number; y: number; z: number; children: ComponentChild },
+    {
+        x: number;
+        y: number;
+        z: number;
+        children: ComponentChild;
+        mobile: boolean;
+    },
     {}
 > = function (cx) {
     let mouseOver = false;
@@ -53,12 +67,22 @@ export const Box: Component<
     });
 
     return (
-        <div>
+        <div class={use(this.mobile).andThen("", "desktop")}>
             <div
-                class="main"
+                class={use(this.mobile).andThen("mobile", "main")}
                 style={{
-                    top: use`${this.y}px`,
-                    left: use`${this.x}px`,
+                    top: use(this.y).andThen(() => {
+                        if (this.mobile) {
+                            return "0px";
+                        }
+                        return `${this.y}px`;
+                    }),
+                    left: use(this.x).andThen(() => {
+                        if (this.mobile) {
+                            return "0px";
+                        }
+                        return `${this.x}px`;
+                    }),
                     "z-index": use(this.z),
                     transform: use(this.z).listen(() => {
                         if (this.z == 0) {
@@ -76,7 +100,7 @@ export const Box: Component<
                     }
                     return (
                         <div class="close" on:click={() => cx.root.remove()}>
-                            X
+                        {use(this.mobile).andThen("Close", "X")}
                         </div>
                     );
                 })}
@@ -86,7 +110,7 @@ export const Box: Component<
 };
 
 Box.style = css`
-    :scope {
+    .desktop {
         position: absolute;
     }
     .main {
@@ -101,8 +125,22 @@ Box.style = css`
         border: 2px solid ${backgroundColor};
         display: flex;
     }
+    .mobile {
+        padding: 20px;
+        background-color: ${lightColor};
+        color: ${textColor};
+        font-optical-sizing: auto;
+        font-style: normal;
+        border: 2px solid ${backgroundColor};
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
     .close {
         cursor: pointer;
         padding: 10px;
+    }
+    .mobile > .close {
+        padding-top: 20px;
     }
 `;
