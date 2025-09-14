@@ -1,4 +1,4 @@
-import "dreamland/dev";
+import { css, type Component } from "dreamland/core";
 import "./index.css";
 import "./wm.css";
 import { Box, Row } from "./box";
@@ -7,45 +7,32 @@ import { AboutMe, Animate, Buttons, Contact } from "./about-me";
 import { NavBar } from "./navbar";
 
 const App: Component<{}, {}> = function () {
-    this.css = `
-      height: 100vh;
-    `;
-
     return (
         <div>
-            <NavBar />
+            <NavBar/>
         </div>
     );
 };
+App.style = css`
+:scope{
+
+    height: 100vh;
+}
+`;
 
 export const Personal: Component<{}, {}> = function () {
-    const spin = css`
-        width: 100px;
-        float: right;
-        border-radius: 10px;
-        margin: 10px;
-    `;
-    const boxHub = css`
-        position: absolute;
-        top: 0;
-        left: 0;
-    `;
-    const predisplayed = css`
-        margin-top: 150px;
-    `;
-
     return (
         <div>
             {" "}
-            <div id="boxHub" class={boxHub} />
-            <div class={predisplayed}>
+            <div id="boxHub" class="boxHub" />
+            <div class="predisplayed">
                 <Row>
-                    <Box x={0} y={0} z={0}>
+                 <Box x={0} y={0} z={0}>
                         <div style={{ width: "400px" }}>
                             <h1>
                                 Hello.
                                 <Link content={Animate}>
-                                    <img class={spin} src="/pfp.png" />
+                                    <img class="spin" src="/pfp.png" />
                                 </Link>
                             </h1>
                             <div>I am foxmoss.</div>
@@ -71,13 +58,30 @@ export const Personal: Component<{}, {}> = function () {
                                 and will not reload/replace this tab.
                             </div>
                         </div>
-                    </Box>
+                    </Box> 
                 </Row>
             </div>
         </div>
     );
 };
 
+Personal.style = css`
+    .spin {
+        width: 100px;
+        float: right;
+        border-radius: 10px;
+        margin: 10px;
+    }
+    .boxHub {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .predisplayed {
+        margin-top: 150px;
+    }
+`;
+
 window.addEventListener("load", () => {
-    document.getElementById("app")!.replaceWith(<App />);
+    document.body.appendChild(<App />);
 });

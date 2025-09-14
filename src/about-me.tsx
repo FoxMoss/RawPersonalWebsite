@@ -1,20 +1,17 @@
+import { css, type Component } from "dreamland/core";
 import { Link, RealLink, SmallLink } from "./link";
 
 export const AboutMe = () => (
-    <div style={{ minWidth: "300px" }}>
+    <div style={{ "min-width": "300px" }}>
         <h2>About Me</h2>
         <div>
             You probably know me from my various programming projects or from
             being in some nerdy comunity.
         </div>
         <br />
-        <div>I write mostly small C and C++ programs.</div>
         <br />
         <h4>Notable Projects</h4>
         <ul>
-            <li>
-                <Link content={Mediaology}>Mediaology</Link>
-            </li>
             <li>
                 <Link content={Wisp}>Wisp</Link>
             </li>
@@ -23,38 +20,28 @@ export const AboutMe = () => (
         <h4>Other Interests</h4>
         <ul>
             <li>Game Development</li>
+            <li>Music Production</li>
             <li>
                 <Link content={Kpop}>Kpop</Link>
             </li>
-            <li>3D Moddling</li>
-            <li>Religion</li>
         </ul>
     </div>
 );
-export const WebButtons = () => (
-    <div style={{ minWidth: "400px" }}>
-        <h2>Kpop</h2>
-    </div>
-);
 export const Kpop = () => (
-    <div style={{ minWidth: "400px" }}>
+    <div style={{ "min-width": "400px" }}>
         <h2>Kpop</h2>
         <div>
             I mostly listen to girl groups, mostly NewJeans and Le Sseraphim.
             I'm not really deep into the community, I just like the music :P
         </div>
-        <br />
-        <RealLink href="https://music.youtube.com/playlist?list=PLYvvrJJVZ5WXnCrxd2V5Y6N7gkU8jSlja">
-            My Playlist
-        </RealLink>
     </div>
 );
 
 export const Animate = () => (
-    <img style={{ borderRadius: "10px" }} src="/spin.gif" />
+    <img style={{ "border-radius": "10px" }} src="/spin.gif" />
 );
 export const Wisp = () => (
-    <div style={{ minWidth: "400px" }}>
+    <div style={{ "min-width": "400px" }}>
         <h2>Wisp</h2>
         <div>
             Wisp is a proxing protocol, similar to socks5 and bare. It is meant
@@ -64,8 +51,8 @@ export const Wisp = () => (
         <br />
         <div>
             I created{" "}
-            <RealLink href="https://github.com/FoxMoss/WispServerCpp">
-                WispServerCpp
+            <RealLink href="http://github.com/MercuryWorkshop/Woeful">
+                Woeful
             </RealLink>
             , and helped develop out the{" "}
             <RealLink href="https://github.com/MercuryWorkshop/wisp-protocol">
@@ -76,7 +63,7 @@ export const Wisp = () => (
     </div>
 );
 export const Mediaology = () => (
-    <div style={{ minWidth: "400px" }}>
+    <div style={{ "min-width": "400px" }}>
         <h2>Mediaology</h2>
         <div>
             Also known by other meaningless titles, such as "Moss News", "Fish
@@ -90,40 +77,45 @@ export const Mediaology = () => (
         </div>
     </div>
 );
-const buttonStyle = css`
-    margin: 8px;
-`;
 export const Buttons = () => {
     return (
-        <div style={{ minWidth: "400px" }}>
+        <div style={{ "min-width": "400px" }}>
             <h2>88x31 Web Buttons</h2>
             Here is my collection with links, or an acompanied explanation.
-            <div>
+            <div style={{ "display": "flex", "gap": "8px" }}>
                 <Link content={DreamlandButton}>
-                    <img class={buttonStyle} src="/dreamland.png" />
+                    <img src="/dreamland.png" />
                 </Link>
                 <RealLink href="https://anybrowser.org/campaign/index.html/">
-                    <img class={buttonStyle} src="/any-browser.png" />
+                    <img src="/any-browser.png" />
                 </RealLink>
                 <SmallLink content="This is my button, I license under Creative Commons 0. Feel free to use it on your own site.">
-                    <img class={buttonStyle} src="/foxmossbutton.png" />
+                    <img src="/foxmossbutton.png" />
                 </SmallLink>
                 <RealLink href="https://velzie.rip/">
-                    <img
-                        class={buttonStyle}
-                        src="https://velzie.rip/88x31.png"
-                    />
+                    <img src="https://velzie.rip/88x31.png" />
                 </RealLink>
                 <RealLink href="https://bomberfish.ca/">
-                    <img class={buttonStyle} src="/bomberfish.gif" />
+                    <img src="/bomberfish.gif" />
                 </RealLink>
             </div>
         </div>
     );
 };
+Buttons.style = css`
+    :scope {
+        background: red;
+    }
+    .buttons {
+        display: flex;
+        gap: 8px;
+        margin: 4px;
+    }
+`;
+
 export const DreamlandButton = () => {
     return (
-        <div style={{ minWidth: "400px" }}>
+        <div style={{ "min-width": "400px" }}>
             I also made this button! Creative Commons 0 if you would like to use
             it. It is for the{" "}
             <RealLink href="https://dreamland.js.org/">
@@ -134,15 +126,8 @@ export const DreamlandButton = () => {
     );
 };
 export const Contact = () => {
-    let small = css`
-        font-size: x-small;
-        max-width: 20vw;
-        display: block;
-        overflow-wrap: break-word;
-        cursor: pointer;
-    `;
     return (
-        <div style={{ minWidth: "400px" }}>
+        <div style={{ "min-width": "400px" }}>
             <div>
                 Discord: <pre>foxmoss_</pre>
             </div>
@@ -152,7 +137,7 @@ export const Contact = () => {
             <div>
                 Monero:{" "}
                 <div
-                    class={small}
+                    class="small"
                     on:click={() => {
                         navigator.clipboard.writeText(
                             "49A955UvYmEBWWTXcxe3vd7YnBpGa85hu88Gx1TrJpELFb6QNLapTJ1SAtVMqrwFePBdnKgpgGdizPsN5MCeDoEA6PF7HW1",
@@ -166,3 +151,13 @@ export const Contact = () => {
         </div>
     );
 };
+
+Contact.style = css`
+    .small {
+        font-size: x-small;
+        max-width: 20vw;
+        display: block;
+        overflow-wrap: break-word;
+        cursor: pointer;
+    }
+`;

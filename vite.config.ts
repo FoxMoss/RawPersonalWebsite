@@ -1,14 +1,6 @@
-import { defineConfig, UserConfig } from "vite";
-import { resolve } from "path";
-import { dreamlandPlugin } from "vite-plugin-dreamland";
+import { jsxPlugin } from "dreamland/vite";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-    plugins: [dreamlandPlugin()],
-    build: {
-        rollupOptions: {
-            input: {
-                main: resolve(__dirname, "index.html"),
-            },
-        },
-    },
+	plugins: [jsxPlugin()],
 });
