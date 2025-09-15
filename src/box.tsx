@@ -50,21 +50,23 @@ export const Box: Component<
                 mouseOver = false;
             },
         );
+        if (!import.meta.env.SSR) {
+            document.addEventListener("mousedown", () => {
+                if (mouseOver) {
+                    captured = true;
+                }
+            });
+            document.addEventListener("mouseup", () => {
+                captured = false;
+            });
+            document.addEventListener("mousemove", (mouse: MouseEvent) => {
+                if (captured) {
+                    this.x = this.x + mouse.movementX;
+                    this.y = this.y + mouse.movementY;
+                }
+            });
+        }
     };
-    document.addEventListener("mousedown", () => {
-        if (mouseOver) {
-            captured = true;
-        }
-    });
-    document.addEventListener("mouseup", () => {
-        captured = false;
-    });
-    document.addEventListener("mousemove", (mouse: MouseEvent) => {
-        if (captured) {
-            this.x = this.x + mouse.movementX;
-            this.y = this.y + mouse.movementY;
-        }
-    });
 
     return (
         <div class={use(this.mobile).andThen("", "desktop")}>
@@ -94,13 +96,13 @@ export const Box: Component<
                 }}
             >
                 <div>{cx.children}</div>
-                {use(this.z).andThen(() => {
-                    if (this.z == 0) {
+                {use(this.z).map((z) => {
+                    if (z == 0) {
                         return "";
                     }
                     return (
                         <div class="close" on:click={() => cx.root.remove()}>
-                        {use(this.mobile).andThen("Close", "X")}
+                            {use(this.mobile).andThen("Close", "X")}
                         </div>
                     );
                 })}

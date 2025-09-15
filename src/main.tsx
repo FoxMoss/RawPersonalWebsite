@@ -7,21 +7,26 @@ import { AboutMe, Animate, Buttons, Contact } from "./about-me";
 import { NavBar } from "./navbar";
 import { backgroundColor, lightColor, textColor } from "./colors";
 
-// https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser#11381730
-window.mobile = createState({
-    mobile: false,
+let url: string | undefined;
+
+globalThis.mobile = createState({
+    mobile: true,
 });
 
-const App: Component<{}, { mobile: boolean }> = function () {
-    use(this.mobile).listen(() => (window.mobile.mobile = this.mobile));
-    this.mobile = typeof screen.orientation !== "undefined";
+const App: Component = function (cx) {
+    cx.mount = () => {
+        if (!import.meta.env.SSR) {
+            globalThis.mobile.mobile = window.screen.width < 500;
+        }
+    };
+
     return (
-        <div class={use(this.mobile).andThen("", "desktop")}>
-            {use(this.mobile).andThen(() => (
+        <div class={use(globalThis.mobile.mobile).andThen("mobile", "desktop")}>
+            {use(globalThis.mobile.mobile).andThen(() => (
                 <div
                     class="annoying"
                     on:click={() => {
-                        this.mobile = false;
+                        globalThis.mobile.mobile = false;
                     }}
                 >
                     You are viewing the mobile version of the site. Click me to
@@ -29,16 +34,20 @@ const App: Component<{}, { mobile: boolean }> = function () {
                 </div>
             ))}
 
-            <NavBar mobile={use(this.mobile)} />
+            <NavBar mobile={use(globalThis.mobile.mobile)} />
         </div>
     );
 };
 App.style = css`
-    :scope {
+    .mobile {
         height: 100vh;
+        max-width: 100vw;
         overflow-x: hidden;
+        overflow-y: scroll;
     }
     .desktop {
+        max-height: 100vh;
+        max-width: 100vw;
         overflow: hidden;
     }
     .annoying {
@@ -84,6 +93,10 @@ export const Personal: Component<
 
                             <h1>Hello.</h1>
                             <div>I am foxmoss.</div>
+                            <div>
+                                I am developer interested in networking and low
+                                level programming.
+                            </div>
                             <br />
                             <ul>
                                 <li>
@@ -111,15 +124,10 @@ export const Personal: Component<
                                     </Link>
                                 </li>
                             </ul>
-                            <br />
-                            <div>
-                                Note: All external links will be clearly marked
-                                and will not reload/replace this tab.
-                            </div>
                         </div>
                     </Box>
                 </Row>
-                {use(this.mobile).andThen(<div id="boxHub" />)}
+                {use(this.mobile).andThen(<div id="boxHub" class="mobileBox"/>)}
             </div>
         </div>
     );
@@ -136,6 +144,10 @@ Personal.style = css`
         width: 100px;
         border-radius: 10px;
     }
+    .mobileBox {
+      margin-bottom: 50vh;
+
+    }
     .boxHub {
         position: absolute;
         top: 0;
@@ -145,6 +157,11 @@ Personal.style = css`
         margin-top: 150px;
     }
 `;
+
+export default (path?: string) => {
+    url = path;
+    return <App />;
+};
 
 window.addEventListener("load", () => {
     document.body.appendChild(<App />);

@@ -1,4 +1,4 @@
-import { ComponentChild, css, type Component } from "dreamland/core";
+import { type ComponentChild, css, type Component } from "dreamland/core";
 import { Row } from "./box";
 import { backgroundColor, lightColor } from "./colors";
 import { Personal } from "./main";
@@ -13,8 +13,14 @@ export const NavBar: Component<
         pages: Record<string, { name: string; page: ComponentChild }>;
         path: string;
     }
-> = function () {
-    this.path = new URL(document.URL).pathname;
+> = function (cx) {
+    cx.mount = () => {
+        if (!import.meta.env.SSR) {
+            this.path = new URL(document.URL).pathname;
+        }
+    };
+    this.path = "/";
+
     use(this.path).listen(() => {
         let url = new URL(document.URL);
         url.pathname = this.path;
@@ -41,9 +47,9 @@ export const NavBar: Component<
                                         (key === this.path
                                             ? "mobileSelected"
                                             : "mobileBar"),
-                                        (key === this.path
-                                            ? "desktopSelected"
-                                            : "desktopBar"),
+                                    key === this.path
+                                        ? "desktopSelected"
+                                        : "desktopBar",
                                 )}
                                 on:click={() => {
                                     this.path = key;
@@ -55,14 +61,13 @@ export const NavBar: Component<
                     }),
                 )}
             </Row>
-            {use(this.path).andThen(() => this.pages[this.path].page)}
+            {use(this.path).map((path) => this.pages[path].page)}
         </div>
     );
 };
 
 NavBar.style = css`
     :scope {
-        margin: 5px;
     }
     .desktopBar {
         background: ${lightColor};
@@ -79,7 +84,7 @@ NavBar.style = css`
         border-radius: 10px;
         margin: 5px;
     }
-    .mobileBar{
+    .mobileBar {
         background: ${lightColor};
         padding: 4px;
         border-radius: 0px;

@@ -26,7 +26,7 @@ export const Link: Component<
                         x={curentMouseX}
                         y={curentMouseY}
                         z={zInc++}
-                        mobile={use(window.mobile.mobile)}
+                        mobile={use(globalThis.mobile.mobile)}
                     >
                         {this.content()}
                     </Box>,
@@ -67,11 +67,11 @@ export const RealLink: Component<
                         x={curentMouseX}
                         y={curentMouseY}
                         z={zInc++}
-                        mobile={use(window.mobile.mobile)}
+                        mobile={use(globalThis.mobile.mobile)}
                     >
                         <div
                             style={{
-                                "min-width": use(window.mobile.mobile).andThen(
+                                "min-width": use(globalThis.mobile.mobile).andThen(
                                     "auto",
                                     "400px",
                                 ),
@@ -121,11 +121,11 @@ export const SmallLink: Component<
                         x={curentMouseX}
                         y={curentMouseY}
                         z={zInc++}
-                        mobile={use(window.mobile.mobile)}
+                        mobile={use(globalThis.mobile.mobile)}
                     >
                         <div
                             style={{
-                                "min-width": use(window.mobile.mobile).andThen(
+                                "min-width": use(globalThis.mobile.mobile).andThen(
                                     "auto",
                                     "400px",
                                 ),
