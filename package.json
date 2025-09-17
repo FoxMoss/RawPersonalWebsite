@@ -4,11 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc && vite build",
+		"build:client": "tsc && vite build --ssrManifest .vite/ssr-manifest.json --outDir dist/static",
+		"build:server": "tsc && vite build --ssr src/main-server.ts --outDir dist/server",
+		"build": "pnpm run build:client && pnpm run build:server && node prerender.js",
     "dev": "vite",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@literals/rollup-plugin-html-css-minifier": "^3.0.1",
     "dreamland": "link:../dreamland",
     "vite-plugin-dreamland": "^1.2.0"
   },

@@ -162,7 +162,3 @@ export default (path?: string) => {
     url = path;
     return <App />;
 };
-
-window.addEventListener("load", () => {
-    document.body.appendChild(<App />);
-});
