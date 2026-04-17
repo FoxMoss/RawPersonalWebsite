@@ -9,10 +9,10 @@ export const Link: Component<
         mobile?: boolean;
     },
     {}
-> = function (cx) {
+> = function () {
     let curentMouseX = 0;
     let curentMouseY = 0;
-    cx.mount = () => {
+    this.cx.mount = () => {
         document.addEventListener("mousemove", (mouse) => {
             curentMouseX = mouse.x;
             curentMouseY = mouse.y;
@@ -33,7 +33,7 @@ export const Link: Component<
                 );
             }}
         >
-            {cx.children}
+            {this.children}
         </span>
     );
 };
@@ -46,14 +46,14 @@ Link.style = css`
 export const RealLink: Component<
     { href: string; children: ComponentChild | string; mobile?: boolean },
     {}
-> = function (cx) {
+> = function () {
     const link = css`
         text-decoration: underline;
         cursor: pointer;
     `;
     let curentMouseX = 0;
     let curentMouseY = 0;
-    cx.mount = () => {
+    this.cx.mount = () => {
         document.addEventListener("mousemove", (mouse) => {
             curentMouseX = mouse.x;
             curentMouseY = mouse.y;
@@ -71,8 +71,8 @@ export const RealLink: Component<
                     >
                         <div
                             style={{
-                                "min-width": use(globalThis.mobile.mobile).andThen(
-                                    "auto",
+                                "min-width": use(globalThis.mobile.mobile).and(
+                                    "auto").not().and(
                                     "400px",
                                 ),
                                 "text-decoration": "underline",
@@ -90,7 +90,7 @@ export const RealLink: Component<
                 );
             }}
         >
-            {cx.children}
+            {this.children}
         </span>
     );
 };
@@ -104,10 +104,10 @@ RealLink.style = css`
 export const SmallLink: Component<
     { content: string; children: ComponentChild | string; mobile?: boolean },
     {}
-> = function (cx) {
+> = function () {
     let curentMouseX = 0;
     let curentMouseY = 0;
-    cx.mount = () => {
+    this.cx.mount = () => {
         document.addEventListener("mousemove", (mouse) => {
             curentMouseX = mouse.x;
             curentMouseY = mouse.y;
@@ -125,8 +125,8 @@ export const SmallLink: Component<
                     >
                         <div
                             style={{
-                                "min-width": use(globalThis.mobile.mobile).andThen(
-                                    "auto",
+                                "min-width": use(globalThis.mobile.mobile).and(
+                                    "auto").not().and(
                                     "400px",
                                 ),
                             }}
@@ -137,7 +137,7 @@ export const SmallLink: Component<
                 );
             }}
         >
-            {cx.children}
+            {this.children}
         </span>
     );
 };

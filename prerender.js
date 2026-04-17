@@ -9,13 +9,10 @@ const resolve = (p) => resolvePath(__dirname, p);
 
 const entry = await import(resolve("dist/server/main-server.js"));
 
-entry.default("/");
-const paths = entry.router.ssgables();
-
 let template = await readFile(resolve("dist/static/index.html"), "utf8");
 
-for (const [route, path] of paths) {
-	const rendered = await renderSsr(template, () => entry.default(route));
+for (const  path of ["/"]) {
+	const rendered = await renderSsr(template, entry);
 	console.log(
 		`prerendered: ${route}\t${(new TextEncoder().encode(rendered).byteLength / 1024).toFixed(2)}kb`
 	);

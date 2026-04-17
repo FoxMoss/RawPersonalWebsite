@@ -4,13 +4,15 @@ import { backgroundColor, lightColor, textColor } from "./colors";
 export const Row: Component<
     {
         mobile: boolean;
-        children: ComponentChild;
+        children?: ComponentChild;
     },
     {}
-> = function (cx) {
+> = function () {
     return (
-        <div class={use(this.mobile).andThen("mobile", "desktop")}>
-            {cx.children}
+        <div class={use(this.mobile).and("mobile").or("desktop")}>
+            {
+              this.children
+            }
         </div>
     );
 };
@@ -34,17 +36,17 @@ export const Box: Component<
         mobile: boolean;
     },
     {}
-> = function (cx) {
+> = function () {
     let mouseOver = false;
     let captured = false;
-    cx.mount = () => {
-        (cx.root.children[0] as HTMLDivElement).addEventListener(
+    this.cx.mount = () => {
+        (this.root.children[0] as HTMLDivElement).addEventListener(
             "mouseenter",
             () => {
                 mouseOver = true;
             },
         );
-        (cx.root.children[0] as HTMLDivElement).addEventListener(
+        (this.root.children[0] as HTMLDivElement).addEventListener(
             "mouseleave",
             () => {
                 mouseOver = false;
@@ -69,17 +71,17 @@ export const Box: Component<
     };
 
     return (
-        <div class={use(this.mobile).andThen("", "desktop")}>
+        <div class={use(this.mobile).and("").or("desktop")}>
             <div
-                class={use(this.mobile).andThen("mobile", "main")}
+                class={use(this.mobile).and("mobile").or( "main")}
                 style={{
-                    top: use(this.y).andThen(() => {
+                    top: use(this.y).and(() => {
                         if (this.mobile) {
                             return "0px";
                         }
                         return `${this.y}px`;
                     }),
-                    left: use(this.x).andThen(() => {
+                    left: use(this.x).and(() => {
                         if (this.mobile) {
                             return "0px";
                         }
@@ -95,14 +97,14 @@ export const Box: Component<
                     }),
                 }}
             >
-                <div>{cx.children}</div>
+                <div>{this.children}</div>
                 {use(this.z).map((z) => {
                     if (z == 0) {
                         return "";
                     }
                     return (
-                        <div class="close" on:click={() => cx.root.remove()}>
-                            {use(this.mobile).andThen("Close", "X")}
+                        <div class="close" on:click={() => this.root.remove()}>
+                            {use(this.mobile).and("Close").or( "X")}
                         </div>
                     );
                 })}

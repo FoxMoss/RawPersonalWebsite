@@ -8,26 +8,14 @@ const Blog: Component<{}, {}> = function () {
 };
 
 export const NavBar: Component<
-    { mobile: boolean },
+    { url:string, mobile: boolean },
     {
         pages: Record<string, { name: string; page: ComponentChild }>;
         path: string;
     }
-> = function (cx) {
-    cx.mount = () => {
-        if (!import.meta.env.SSR) {
-            this.path = new URL(document.URL).pathname;
-        }
-    };
+> = function () {
     this.path = "/";
 
-    use(this.path).listen(() => {
-        let url = new URL(document.URL);
-        url.pathname = this.path;
-        if (window.location.toString() != url.toString()) {
-            window.location.assign(url);
-        }
-    });
     this.pages = {
         "/": { name: "Personal", page: <Personal mobile={use(this.mobile)} /> },
         "/blog/": { name: "Blog", page: <Blog /> },
@@ -36,32 +24,34 @@ export const NavBar: Component<
     return (
         <div>
             <Row mobile={use(this.mobile)}>
-                {use(this.path).andThen(() =>
+                {
                     Object.keys(this.pages).map((key) => {
                         let val = this.pages[key];
 
                         return (
                             <span
-                                class={use(this.mobile).andThen(
+                                class={use(this.mobile).and(
                                     "mobile " +
                                         (key === this.path
                                             ? "mobileSelected"
-                                            : "mobileBar"),
+                                            : "mobileBar")).or(
                                     key === this.path
                                         ? "desktopSelected"
                                         : "desktopBar",
                                 )}
                                 on:click={() => {
-                                    this.path = key;
+                                  window.location.assign(key);
+
                                 }}
                             >
                                 {val.name}
                             </span>
                         );
-                    }),
-                )}
+                    })}
+                   
             </Row>
-            {use(this.path).map((path) => this.pages[path].page)}
+            {use(this.path).map((path) => this.pages[path].page)
+            }
         </div>
     );
 };

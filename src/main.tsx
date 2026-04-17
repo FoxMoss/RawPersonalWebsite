@@ -13,16 +13,19 @@ globalThis.mobile = createState({
     mobile: true,
 });
 
-const App: Component = function (cx) {
-    cx.mount = () => {
+const App: Component = function () {
+    this.cx.mount = () => {
         if (!import.meta.env.SSR) {
             globalThis.mobile.mobile = window.screen.width < 500;
         }
     };
 
     return (
-        <div class={use(globalThis.mobile.mobile).andThen("mobile", "desktop")}>
-            {use(globalThis.mobile.mobile).andThen(() => (
+        <div
+            id="app"
+            class={use(globalThis.mobile.mobile).and("mobile").or("desktop")}
+        >
+            {use(globalThis.mobile.mobile).and(() => (
                 <div
                     class="annoying"
                     on:click={() => {
@@ -34,7 +37,7 @@ const App: Component = function (cx) {
                 </div>
             ))}
 
-            <NavBar mobile={use(globalThis.mobile.mobile)} />
+            <NavBar url="/" mobile={use(globalThis.mobile.mobile)} />
         </div>
     );
 };
@@ -69,24 +72,22 @@ export const Personal: Component<
     return (
         <div>
             {" "}
-            {use(this.mobile).andThen("", <div id="boxHub" class="boxHub" />)}
-            <div class={use(this.mobile).andThen("", "predisplayed")}>
+            {use(this.mobile)
+                .and("")
+                .or(<div id="boxHub" class="boxHub" />)}
+            <div class={use(this.mobile).and("").or("predisplayed")}>
                 <Row mobile={use(this.mobile)}>
                     <Box x={0} y={0} z={0} mobile={use(this.mobile)}>
                         <div
                             style={{
-                                width: use(this.mobile).andThen(
-                                    "auto",
-                                    "400px",
-                                ),
+                                width: use(this.mobile).and("auto").or("400px"),
                             }}
                         >
                             <Link content={Animate} mobile={use(this.mobile)}>
                                 <img
-                                    class={use(this.mobile).andThen(
-                                        "spinMobile",
-                                        "spin",
-                                    )}
+                                    class={use(this.mobile)
+                                        .and("spinMobile")
+                                        .or("spin")}
                                     src="/pfp.png"
                                 />
                             </Link>
@@ -127,7 +128,7 @@ export const Personal: Component<
                         </div>
                     </Box>
                 </Row>
-                {use(this.mobile).andThen(<div id="boxHub" class="mobileBox"/>)}
+                {use(this.mobile).and(<div id="boxHub" class="mobileBox" />)}
             </div>
         </div>
     );
@@ -145,8 +146,7 @@ Personal.style = css`
         border-radius: 10px;
     }
     .mobileBox {
-      margin-bottom: 50vh;
-
+        margin-bottom: 50vh;
     }
     .boxHub {
         position: absolute;

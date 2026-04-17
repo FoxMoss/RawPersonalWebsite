@@ -3,7 +3,7 @@ import { Link, RealLink, SmallLink } from "./link";
 export const AboutMe = () => (
     <div
         style={{
-            "min-width": use(globalThis.mobile.mobile).andThen("auto", "300px"),
+            "min-width": use(globalThis.mobile.mobile).and("auto").not().and("300px"),
         }}
     >
         <h2>About Me</h2>
@@ -33,7 +33,7 @@ export const AboutMe = () => (
 export const Kpop = () => (
     <div
         style={{
-            "min-width": use(globalThis.mobile.mobile).andThen("auto", "400px"),
+            "min-width": use(globalThis.mobile.mobile).and("auto").not().and( "400px"),
         }}
     >
         <h2>Kpop</h2>
@@ -50,7 +50,7 @@ export const Animate = () => (
 export const Wisp = () => (
     <div
         style={{
-            "min-width": use(globalThis.mobile.mobile).andThen("auto", "400px"),
+            "min-width": use(globalThis.mobile.mobile).and("auto").not().and("400px"),
         }}
     >
         <h2>Wisp</h2>
@@ -76,7 +76,7 @@ export const Wisp = () => (
 export const Mediaology = () => (
     <div
         style={{
-            "min-width": use(globalThis.mobile.mobile).andThen("auto", "400px"),
+            "min-width": use(globalThis.mobile.mobile).and("auto").not().and("400px"),
         }}
     >
         <h2>Mediaology</h2>
@@ -96,7 +96,7 @@ export const Buttons = () => {
     return (
         <div
             style={{
-                "min-width": use(globalThis.mobile.mobile).andThen("auto", "400px"),
+                "min-width": use(globalThis.mobile.mobile).and("auto").not().and("400px"),
             }}
         >
             <h2>88x31 Web Buttons</h2>
@@ -125,7 +125,7 @@ export const DreamlandButton = () => {
     return (
         <div
             style={{
-                "min-width": use(globalThis.mobile.mobile).andThen("auto", "400px"),
+                "min-width": use(globalThis.mobile.mobile).and("auto").not().and("400px"),
             }}
         >
             I also made this button! Creative Commons 0 if you would like to use
